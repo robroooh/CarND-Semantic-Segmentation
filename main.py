@@ -142,8 +142,8 @@ def run():
     image_shape = (160, 576)
     epochs = range(5)
     batch_size = 32
-    correct_label = tf.placeholder(tf.float32, shape=(None, None, None, num_classes))
-    learning_rate = tf.placeholder(tf.float32)
+    correct_label = tf.placeholder(tf.float32, shape=(None, None, None, num_classes), name='correct_label')
+    learning_rate = tf.placeholder(tf.float32, name='learning_rate')
 
     data_dir = './data'
     runs_dir = './runs'
