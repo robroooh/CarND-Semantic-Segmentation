@@ -85,7 +85,7 @@ def layers(vgg_layer3_out, vgg_layer4_out, vgg_layer7_out, num_classes):
 
     # upsample the output to 8x
     output_upsamp = tf.layers.conv2d_transpose(output,
-                                               num_classes, 4,
+                                               num_classes, 15,
                                                strides=8,
                                                padding="SAME",
                                                kernel_regularizer=tf.contrib.layers.l2_regularizer(1e-3))
@@ -136,7 +136,7 @@ def train_nn(sess, epochs, batch_size, get_batches_fn, train_op, cross_entropy_l
                                feed_dict={input_image: image, correct_label: label,
                                           keep_prob: 0.3, learning_rate: 1e-3})
             if train_count % 10 == 0:
-                print("Epoch: {} Loss: {}", epoch+1, loss)
+                print("Epoch: {} Loss: {}".format(epoch+1, loss))
             train_count += 1
 tests.test_train_nn(train_nn)
 
@@ -144,8 +144,8 @@ tests.test_train_nn(train_nn)
 def run():
     num_classes = 2
     image_shape = (160, 576)
-    epochs = 5
-    batch_size = 32
+    epochs = 30
+    batch_size = 4
     correct_label = tf.placeholder(tf.float32, shape=(None, None, None, num_classes), name='correct_label')
     learning_rate = tf.placeholder(tf.float32, name='learning_rate')
 
