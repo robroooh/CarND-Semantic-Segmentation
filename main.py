@@ -2,6 +2,7 @@ import os.path
 import tensorflow as tf
 import helper
 import warnings
+from tqdm import tqdm
 from distutils.version import LooseVersion
 import project_tests as tests
 
@@ -126,9 +127,10 @@ def train_nn(sess, epochs, batch_size, get_batches_fn, train_op, cross_entropy_l
     :param keep_prob: TF Placeholder for dropout keep probability
     :param learning_rate: TF Placeholder for learning rate
     """
+    print("Start Training...")
     sess.run(tf.global_variables_initializer())
     train_count = 1
-    for epoch in range(epochs):
+    for epoch in tqdm(range(epochs)):
         for image, label in get_batches_fn(batch_size):
             _, loss = sess.run([train_op, cross_entropy_loss],
                                feed_dict={input_image: image, correct_label: label,
